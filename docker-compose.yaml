@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  app-db:
+    container_name: app-db
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql
+    restart: always
+
+  lost-found-app:
+    container_name: lost-found-app
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    depends_on:
+      - app-db
+    ports:
+      - "8181:8181"
+    restart: always
